@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project_group6/core/app.dart';
+import 'package:senior_project_group6/core/services/get_it_setup.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const Scaffold());
-  }
+  setup();
+  runApp(const App());
 }
