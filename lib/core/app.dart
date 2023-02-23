@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senior_project_group6/core/navigation/navigation_service.dart';
 
 import '../features/splash/splash_page.dart';
 import 'globals/constants.dart';
@@ -28,9 +27,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => getIt<NavigationService>()),
-      ],
+      providers: [],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         // theme: themeState.theme.themeData,
