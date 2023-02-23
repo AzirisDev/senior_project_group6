@@ -54,6 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   Expanded(
                     child: CustomTextButton(
+                      buttonText: "Sign Up",
                       onPressed: () {
                         Keys.globalNavigationKey.currentState!
                             .pushReplacementNamed('myrequests');
