@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project_group6/core/globals/keys.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
+import 'package:senior_project_group6/core/widgets/generals/custom_text_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -30,8 +31,8 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(children: [
                   Row(
-                    children: [
-                      const Text("Email",
+                    children: const [
+                      Text("Email",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w300)),
                     ],
@@ -61,8 +62,8 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(children: [
                   Row(
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         "Password",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w300),
@@ -94,31 +95,11 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 children: [
                   Expanded(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        padding:
-                            MaterialStateProperty.all(const EdgeInsets.all(16)),
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColor.primaryBlue),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
-                      ),
+                    child: CustomTextButton(
                       onPressed: () {
                         Keys.globalNavigationKey.currentState!
                             .pushReplacementNamed('myrequests');
                       },
-                      child: const Center(
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                              color: AppColor.white,
-                              fontWeight: FontWeight.w300),
-                        ),
-                      ),
                     ),
                   ),
                 ],
