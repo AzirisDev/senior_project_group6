@@ -79,7 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       buttonText: "Sign Up",
                       onPressed: () {
                         Keys.globalNavigationKey.currentState!
-                            .pushReplacementNamed('myrequests');
+                            .pushReplacementNamed('home');
                       },
                     ),
                   ),
@@ -94,8 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   const Text("Already have an account?"),
                   TextButton(
                       onPressed: () {
-                        Keys.globalNavigationKey.currentState!
-                            .pushReplacementNamed('login');
+                        Navigator.pop(context);
                       },
                       child: const Text("Log In"))
                 ],
