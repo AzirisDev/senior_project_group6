@@ -42,7 +42,29 @@ class _SignUpPageState extends State<SignUpPage> {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: CustomInputField(
+                  labelText: "Telephone number",
+                  hintText: "+7-(777)-777-77-77",
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: AppColor.grey,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: CustomInputField(
                   labelText: "Password",
+                  hintText: "********",
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: AppColor.grey,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: CustomInputField(
+                  labelText: "Confirm password",
                   hintText: "********",
                   prefixIcon: Icon(
                     Icons.lock,
