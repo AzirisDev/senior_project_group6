@@ -45,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: "Telephone number",
                   hintText: "+7-(777)-777-77-77",
                   prefixIcon: Icon(
-                    Icons.email,
+                    Icons.phone,
                     color: AppColor.grey,
                   ),
                 ),
