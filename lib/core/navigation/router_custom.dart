@@ -1,20 +1,18 @@
 import 'package:flutter/cupertino.dart';
-import 'package:senior_project_group6/features/myrequests/ui/my_requests_page.dart';
+import 'package:senior_project_group6/features/home/ui/home_page.dart';
 import 'package:senior_project_group6/features/profile/ui/profile_page.dart';
 import 'package:senior_project_group6/features/requests/ui/requests_page.dart';
 
 import '../widgets/generals/empty_page.dart';
 
 class RouterCustom {
-  static List<String> pages = ['requests', 'myrequests', 'profile'];
-
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case 'myrequests':
+      case 'home':
         // Add new RequestsPage
         return CupertinoPageRoute(
-            builder: (_) => const MyRequestsPage(),
-            settings: const RouteSettings(name: 'myrequests'));
+            builder: (_) => const HomePage(),
+            settings: const RouteSettings(name: 'home'));
       case 'requests':
         // Add new RequestsPage
         return CupertinoPageRoute(

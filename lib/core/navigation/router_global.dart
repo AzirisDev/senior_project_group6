@@ -15,7 +15,7 @@ class RouterGlobal {
         return MaterialPageRoute(builder: (_) => const SplashPageView());
       case 'login':
         return MaterialPageRoute(builder: (_) => const LoginPage());
-      case 'myrequests':
+      case 'home':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case 'signup':
         return MaterialPageRoute(builder: (_) => const SignUpPage());
