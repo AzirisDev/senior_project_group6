@@ -54,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Expanded(
                     child: CustomTextButton(
+                      buttonText: "Log in",
                       onPressed: () {
                         Keys.globalNavigationKey.currentState!
                             .pushReplacementNamed('myrequests');
