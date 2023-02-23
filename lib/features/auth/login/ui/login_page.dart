@@ -3,6 +3,7 @@ import 'package:senior_project_group6/core/globals/keys.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/core/widgets/generals/custom_input_field.dart';
 import 'package:senior_project_group6/core/widgets/generals/custom_text_button.dart';
+import 'package:senior_project_group6/features/auth/sign_up/ui/sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -74,8 +75,8 @@ class _LoginPageState extends State<LoginPage> {
                   const Text("Don't have an account?"),
                   TextButton(
                       onPressed: () {
-                        Keys.globalNavigationKey.currentState!
-                            .pushReplacementNamed('signup');
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (builder) => const SignUpPage()));
                       },
                       child: const Text("Sign Up"))
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project_group6/core/globals/keys.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/features/profile/ui/widgets/profile_info_tile.dart';
 
@@ -19,7 +20,10 @@ class _ProfilePageState extends State<ProfilePage> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Keys.globalNavigationKey.currentState!
+                  .pushReplacementNamed('login');
+            },
             icon: const Icon(Icons.logout_rounded),
           ),
         ],
