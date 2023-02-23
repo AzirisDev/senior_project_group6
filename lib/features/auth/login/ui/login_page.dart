@@ -28,49 +28,27 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 60,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Column(children: [
-                  Row(
-                    children: const [
-                      Text(
-                        "Email",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w300),
-                      ),
-                    ],
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: CustomInputField(
+                  labelText: "Email",
+                  hintText: "steve.smith@nu.edu.kz",
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: AppColor.grey,
                   ),
-                  const SizedBox(height: 10),
-                  const CustomInputField(
-                    hintText: "steve.smith@nu.edu.kz",
-                    prefixIcon: Icon(
-                      Icons.email,
-                      color: AppColor.grey,
-                    ),
-                  ),
-                ]),
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Column(children: [
-                  Row(
-                    children: const [
-                      Text(
-                        "Password",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w300),
-                      ),
-                    ],
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: CustomInputField(
+                  labelText: "Password",
+                  hintText: "********",
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: AppColor.grey,
                   ),
-                  const SizedBox(height: 10),
-                  const CustomInputField(
-                    hintText: "********",
-                    prefixIcon: Icon(
-                      Icons.lock,
-                      color: AppColor.grey,
-                    ),
-                  ),
-                ]),
+                ),
               ),
               Row(
                 children: [
@@ -93,7 +71,12 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("Don't have an account?"),
-                  TextButton(onPressed: () {}, child: const Text("Sign Up"))
+                  TextButton(
+                      onPressed: () {
+                        Keys.globalNavigationKey.currentState!
+                            .pushReplacementNamed('signup');
+                      },
+                      child: const Text("Sign Up"))
                 ],
               )
             ],
