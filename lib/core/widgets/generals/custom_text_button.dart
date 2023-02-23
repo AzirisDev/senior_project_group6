@@ -3,7 +3,13 @@ import 'package:senior_project_group6/core/utils/appcolors.dart';
 
 class CustomTextButton extends StatelessWidget {
   final void Function()? onPressed;
-  const CustomTextButton({super.key, required this.onPressed});
+  final String buttonText;
+
+  const CustomTextButton({
+    super.key,
+    required this.onPressed,
+    required this.buttonText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +22,13 @@ class CustomTextButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: const Center(
+      child: Center(
         child: Text(
-          "Login",
-          style: TextStyle(color: AppColor.white, fontWeight: FontWeight.w300),
+          buttonText,
+          style: const TextStyle(
+            color: AppColor.white,
+            fontWeight: FontWeight.w300,
+          ),
         ),
       ),
     );

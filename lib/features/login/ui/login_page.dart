@@ -25,9 +25,7 @@ class _LoginPageState extends State<LoginPage> {
                 "University requests",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(
-                height: 60,
-              ),
+              const SizedBox(height: 60),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(children: [
@@ -76,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Expanded(
                     child: CustomTextButton(
+                      buttonText: "Login",
                       onPressed: () {
                         Keys.globalNavigationKey.currentState!
                             .pushReplacementNamed('myrequests');
@@ -85,10 +84,10 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               TextButton(
-                  onPressed: () {}, child: const Text("Forgot password?")),
-              const Spacer(
-                flex: 2,
+                onPressed: () {},
+                child: const Text("Forgot password?"),
               ),
+              const Spacer(flex: 2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
