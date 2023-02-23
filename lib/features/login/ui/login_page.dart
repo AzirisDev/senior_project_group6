@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project_group6/core/globals/keys.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
+import 'package:senior_project_group6/core/widgets/generals/custom_input_field.dart';
 import 'package:senior_project_group6/core/widgets/generals/custom_text_button.dart';
 
 class LoginPage extends StatefulWidget {
@@ -32,28 +33,19 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(children: [
                   Row(
                     children: const [
-                      Text("Email",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w300)),
+                      Text(
+                        "Email",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w300),
+                      ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: AppColor.cloudGrey,
-                        borderRadius: BorderRadius.circular(6)),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "steve.smith@nu.edu.kz",
-                        hintStyle: TextStyle(fontWeight: FontWeight.w300),
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: AppColor.grey,
-                        ),
-                      ),
+                  const SizedBox(height: 10),
+                  const CustomInputField(
+                    hintText: "steve.smith@nu.edu.kz",
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: AppColor.grey,
                     ),
                   ),
                 ]),
@@ -70,24 +62,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: AppColor.cloudGrey,
-                        borderRadius: BorderRadius.circular(6)),
-                    child: const TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "********",
-                        hintStyle: TextStyle(fontWeight: FontWeight.w300),
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          color: AppColor.grey,
-                        ),
-                      ),
+                  const SizedBox(height: 10),
+                  const CustomInputField(
+                    hintText: "********",
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: AppColor.grey,
                     ),
                   ),
                 ]),
