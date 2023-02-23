@@ -5,12 +5,14 @@ class CustomInputField extends StatelessWidget {
   final String? hintText;
   final Icon? prefixIcon;
   final String? labelText;
+  final String? errorText;
 
   const CustomInputField({
     super.key,
     required this.hintText,
     required this.prefixIcon,
     required this.labelText,
+    this.errorText,
   });
 
   @override
@@ -18,23 +20,21 @@ class CustomInputField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          labelText ?? "",
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
-        ),
         const SizedBox(height: 10),
-        Container(
-          decoration: BoxDecoration(
-            color: AppColor.cloudGrey,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: TextField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: hintText,
-              hintStyle: const TextStyle(fontWeight: FontWeight.w300),
-              prefixIcon: prefixIcon,
+        TextField(
+          decoration: InputDecoration(
+            fillColor: AppColor.cloudGrey,
+            labelText: labelText,
+            labelStyle: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w300,
+              color: Colors.black,
             ),
+            errorText: errorText,
+            border: InputBorder.none,
+            hintText: hintText,
+            hintStyle: const TextStyle(fontWeight: FontWeight.w300),
+            prefixIcon: prefixIcon,
           ),
         ),
       ],
