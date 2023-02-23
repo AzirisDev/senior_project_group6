@@ -1,16 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:senior_project_group6/core/navigation/navigation_service.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/features/myrequests/ui/my_requests_page.dart';
 import 'package:senior_project_group6/features/profile/ui/profile_page.dart';
 import 'package:senior_project_group6/features/requests/ui/requests_page.dart';
-
-import '../../../core/globals/keys.dart';
-import '../../../core/navigation/custom_observer.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/navigation/router_custom.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
