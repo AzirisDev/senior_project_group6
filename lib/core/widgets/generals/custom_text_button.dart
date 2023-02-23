@@ -4,11 +4,13 @@ import 'package:senior_project_group6/core/utils/appcolors.dart';
 class CustomTextButton extends StatelessWidget {
   final void Function()? onPressed;
   final String buttonText;
+  final bool isLoading;
 
   const CustomTextButton({
     super.key,
     required this.onPressed,
     required this.buttonText,
+    this.isLoading = false,
   });
 
   @override
@@ -23,13 +25,19 @@ class CustomTextButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Center(
-        child: Text(
-          buttonText,
-          style: const TextStyle(
-            color: AppColor.white,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
+        child: isLoading
+            ? const SizedBox(
+                height: 25.0,
+                width: 25.0,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : Text(
+                buttonText,
+                style: const TextStyle(
+                  color: AppColor.white,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
       ),
     );
   }
