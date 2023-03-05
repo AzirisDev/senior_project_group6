@@ -29,7 +29,10 @@ class CustomTextButton extends StatelessWidget {
             ? const SizedBox(
                 height: 25.0,
                 width: 25.0,
-                child: CircularProgressIndicator(strokeWidth: 2),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: AppColor.white,
+                ),
               )
             : Text(
                 buttonText,

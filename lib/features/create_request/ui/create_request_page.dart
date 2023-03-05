@@ -23,145 +23,157 @@ class _MyRequestsPageState extends State<CreateRequestsPage> {
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  "Request Type",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      "Request Type",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: AppColor.cloudGrey,
-                    borderRadius: BorderRadius.circular(10)),
-                child: DropdownButton<String>(
-                  value: _selectedService,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _selectedService = newValue ?? "";
-                    });
-                  },
-                  icon: const Icon(Icons.arrow_drop_down_rounded),
-                  underline: const SizedBox(),
-                  isExpanded: true,
-                  items: _services.map((location) {
-                    return DropdownMenuItem(
-                      value: location,
-                      child: Text(location),
-                    );
-                  }).toList(),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  "Title",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                    decoration: BoxDecoration(
+                        color: AppColor.cloudGrey,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: DropdownButton<String>(
+                      value: _selectedService,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedService = newValue ?? "";
+                        });
+                      },
+                      icon: const Icon(Icons.arrow_drop_down_rounded),
+                      underline: const SizedBox(),
+                      isExpanded: true,
+                      items: _services.map((location) {
+                        return DropdownMenuItem(
+                          value: location,
+                          child: Text(location),
+                        );
+                      }).toList(),
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: AppColor.cloudGrey,
-                    borderRadius: BorderRadius.circular(10)),
-                child: TextField(
-                  controller: titleController,
-                  decoration: const InputDecoration(
-                    fillColor: AppColor.cloudGrey,
-                    border: InputBorder.none,
-                    hintText: "Give short title",
-                    hintStyle: TextStyle(fontWeight: FontWeight.w300),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      "Title",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  "Description",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                    decoration: BoxDecoration(
+                        color: AppColor.cloudGrey,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextField(
+                      controller: titleController,
+                      decoration: const InputDecoration(
+                        fillColor: AppColor.cloudGrey,
+                        border: InputBorder.none,
+                        hintText: "Give short title",
+                        hintStyle: TextStyle(fontWeight: FontWeight.w300),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: AppColor.cloudGrey,
-                    borderRadius: BorderRadius.circular(10)),
-                child: TextField(
-                  controller: descriptionController,
-                  maxLines: 6,
-                  minLines: 3,
-                  decoration: const InputDecoration(
-                    fillColor: AppColor.cloudGrey,
-                    alignLabelWithHint: true,
-                    border: InputBorder.none,
-                    hintText: "Write about the problem",
-                    hintStyle: TextStyle(fontWeight: FontWeight.w300),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      "Description",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  "Photos",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                    decoration: BoxDecoration(
+                        color: AppColor.cloudGrey,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextField(
+                      controller: descriptionController,
+                      maxLines: 6,
+                      minLines: 3,
+                      decoration: const InputDecoration(
+                        fillColor: AppColor.cloudGrey,
+                        alignLabelWithHint: true,
+                        border: InputBorder.none,
+                        hintText: "Write about the problem",
+                        hintStyle: TextStyle(fontWeight: FontWeight.w300),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  height: 100,
-                  child: ListView.builder(
-                    itemCount: 5,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(right: 10),
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: AppColor.cloudGrey,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: index == 0
-                            ? const Icon(
-                                Icons.add_a_photo_rounded,
-                                size: 40,
-                                color: AppColor.primaryBlue,
-                              )
-                            : null,
-                      );
-                    },
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      "Photos",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-              const Spacer(),
-              CustomTextButton(
+            ),
+            SizedBox(
+              height: 100,
+              child: Row(
+                children: [
+                  Flexible(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      itemCount: 5,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: AppColor.cloudGrey,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: index == 0
+                              ? const Icon(
+                                  Icons.add_a_photo_rounded,
+                                  size: 40,
+                                  color: AppColor.primaryBlue,
+                                )
+                              : null,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              child: CustomTextButton(
                 buttonText: "Create Request",
                 onPressed: () {},
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
