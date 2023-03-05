@@ -20,7 +20,7 @@ class _SplashPageViewState extends State<SplashPageView> {
   }
 
   Future _init() async {
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 3));
     Keys.globalNavigationKey.currentState!.pushReplacementNamed('login');
   }
 
