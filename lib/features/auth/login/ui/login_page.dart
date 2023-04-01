@@ -19,6 +19,9 @@ class _LoginPageState extends State<LoginPage> {
   late AuthCubit _cubit;
   bool _isLoading = false;
 
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   void initState() {
     _cubit = context.read<AuthCubit>();
@@ -53,23 +56,25 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 60,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CustomInputField(
+                      controller: _emailController,
                       labelText: "Email",
                       hintText: "steve.smith@nu.edu.kz",
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.email,
                         color: AppColor.grey,
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CustomInputField(
+                      controller: _passwordController,
                       labelText: "Password",
                       hintText: "********",
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.lock,
                         color: AppColor.grey,
                       ),
@@ -82,7 +87,9 @@ class _LoginPageState extends State<LoginPage> {
                           buttonText: "Log in",
                           isLoading: _isLoading,
                           onPressed: () {
-                            _cubit.login();
+                            final email = _emailController.text;
+                            final password = _passwordController.text;
+                            _cubit.login(email, password);
                           },
                         ),
                       ),
@@ -90,9 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextButton(
                       onPressed: () {}, child: const Text("Forgot password?")),
-                  const Spacer(
-                    flex: 2,
-                  ),
+                  const Spacer(flex: 2),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

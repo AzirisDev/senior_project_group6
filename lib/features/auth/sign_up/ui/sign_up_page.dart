@@ -104,7 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           isLoading: _isLoading,
                           buttonText: "Sign Up",
                           onPressed: () {
-                            _cubit.signUp();
+                            // _cubit.signUp();
                           },
                         ),
                       ),
