@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/features/auth/common/cubit/auth_cubit.dart';
 import 'package:senior_project_group6/features/auth/common/injections/login_repository_di.dart';
+import 'package:senior_project_group6/features/auth/common/injections/sign_up_repository_di.dart';
 
 import '../features/splash/splash_page.dart';
 
@@ -19,7 +21,9 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubitImpl(
-            repository: LoginRepositoryInject.loginRepository()!,
+            loginRepository: LoginRepositoryInject.loginRepository()!,
+            signUpRepository: SignUpRepositoryInject.signUpRepository()!,
+            cacheStorage: CacheStorage(),
           ),
         ),
       ],

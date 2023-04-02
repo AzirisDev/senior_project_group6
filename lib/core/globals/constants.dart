@@ -4,7 +4,10 @@ import 'package:get_it/get_it.dart';
 final GetIt getIt = GetIt.instance;
 
 const String baseUrl = 'http://185.4.180.232:81/api/v1';
-const String authenticationEndpoint = '$baseUrl/auth/logIn';
+const String authenticationLogInEndpoint = '$baseUrl/auth/logIn';
+const String authenticationSignUpEndpoint = '$baseUrl/auth/signUp';
+
+const String userIdBox = "userIdBox";
 
 enum Status {
   active,

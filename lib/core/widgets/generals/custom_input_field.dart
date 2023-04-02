@@ -7,6 +7,8 @@ class CustomInputField extends StatelessWidget {
   final String? labelText;
   final String? errorText;
   final TextEditingController? controller;
+  final void Function(String)? onChanged;
+  final bool obscureText;
 
   const CustomInputField({
     super.key,
@@ -15,6 +17,8 @@ class CustomInputField extends StatelessWidget {
     required this.labelText,
     this.controller,
     this.errorText,
+    this.onChanged,
+    this.obscureText = false,
   });
 
   @override
@@ -25,6 +29,8 @@ class CustomInputField extends StatelessWidget {
         const SizedBox(height: 10),
         TextField(
           controller: controller,
+          onChanged: onChanged,
+          obscureText: obscureText,
           decoration: InputDecoration(
             fillColor: AppColor.cloudGrey,
             labelText: labelText,
