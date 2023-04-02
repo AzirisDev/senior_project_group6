@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senior_project_group6/features/auth/common/cubit/auth_state.dart';
 import 'package:senior_project_group6/features/auth/model/user.dart';
 import '../repositories/login_repository.dart';
