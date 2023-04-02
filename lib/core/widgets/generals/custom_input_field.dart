@@ -6,12 +6,14 @@ class CustomInputField extends StatelessWidget {
   final Icon? prefixIcon;
   final String? labelText;
   final String? errorText;
+  final TextEditingController? controller;
 
   const CustomInputField({
     super.key,
     required this.hintText,
     required this.prefixIcon,
     required this.labelText,
+    this.controller,
     this.errorText,
   });
 
@@ -22,6 +24,7 @@ class CustomInputField extends StatelessWidget {
       children: [
         const SizedBox(height: 10),
         TextField(
+          controller: controller,
           decoration: InputDecoration(
             fillColor: AppColor.cloudGrey,
             labelText: labelText,
