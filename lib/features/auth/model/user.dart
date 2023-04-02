@@ -6,10 +6,10 @@ part 'user.g.dart';
 @JsonSerializable()
 @CopyWith()
 class MainUser {
-  final String id;
-  final String message;
-  final String role;
-  final String status;
+  final int? id;
+  final String? message;
+  final String? role;
+  final String? status;
 
   MainUser({
     required this.id,

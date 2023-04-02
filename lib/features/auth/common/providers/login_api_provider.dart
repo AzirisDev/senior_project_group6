@@ -13,9 +13,9 @@ class LoginApiProviderImpl
   Future<MainUser> login(String email, String password) async {
     final object = await provideData(
       endPoint: authenticationEndpoint,
-      param: {
-        'Password': email,
-        'UniversityEmail': password,
+      body: {
+        'Password': password,
+        'UniversityEmail': email,
       },
     );
     return MainUser.fromJson(object);
