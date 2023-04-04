@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:senior_project_group6/core/globals/constants.dart';
 import 'package:senior_project_group6/core/utils/mixin.dart';
 
@@ -18,13 +20,13 @@ class SignUpApiProviderImpl
   ) async {
     final object = await provideData(
       endPoint: authenticationSignUpEndpoint,
-      body: {
+      body: jsonEncode({
         'fullName': fullName,
         'password': password,
         'phoneNumber': phoneNumber,
         'role': "STUDENT",
         'universityEmail': email,
-      },
+      }),
     );
     return object['id'];
   }
