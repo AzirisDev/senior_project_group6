@@ -12,6 +12,9 @@ const String userIdBox = "userIdBox";
 // Requests
 const String requestsEndpoint = '$baseUrl/requests/student';
 
+// Users
+const String usersEndpoint = '$baseUrl/user';
+
 enum Status {
   active,
   inProgress,

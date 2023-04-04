@@ -2,7 +2,11 @@ import 'package:hive/hive.dart';
 import 'package:senior_project_group6/core/globals/constants.dart';
 
 class CacheStorage {
-  CacheStorage();
+  static final CacheStorage _instance = CacheStorage._internal();
+  factory CacheStorage() {
+    return _instance;
+  }
+  CacheStorage._internal();
 
   final String userIdKey = "UserIdKey";
 
