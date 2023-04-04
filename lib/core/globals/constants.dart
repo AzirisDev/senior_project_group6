@@ -6,6 +6,9 @@ final GetIt getIt = GetIt.instance;
 const String baseUrl = 'http://185.4.180.232:81/api/v1';
 const String authenticationEndpoint = '$baseUrl/auth/logIn';
 
+// Requests
+const String requestsEndpoint = '$baseUrl/requests/student';
+
 enum Status {
   active,
   inProgress,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:senior_project_group6/features/home/ui/home_page.dart';
 import 'package:senior_project_group6/features/profile/ui/profile_page.dart';
-import 'package:senior_project_group6/features/requests/ui/requests_page.dart';
+import 'package:senior_project_group6/features/requests/requests_list/ui/requests_list_page.dart';
 
 import '../widgets/generals/empty_page.dart';
 
@@ -16,7 +16,7 @@ class RouterCustom {
       case 'requests':
         // Add new RequestsPage
         return CupertinoPageRoute(
-            builder: (_) => const RequestsPage(),
+            builder: (_) => const RequestsListPage(),
             settings: const RouteSettings(name: 'requests'));
       case 'profile':
         // Add new ProfilePage
