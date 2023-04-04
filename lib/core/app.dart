@@ -32,7 +32,8 @@ class _AppState extends State<App> {
         ),
         BlocProvider<RequestsListCubit>(
           create: (context) => RequestsListCubitImpl(
-            RequestsRepositoryInject.requestsRepository()!,
+            repository: RequestsRepositoryInject.requestsRepository()!,
+            cacheStorage: CacheStorage(),
           ),
         ),
         BlocProvider<ProfileCubit>(
