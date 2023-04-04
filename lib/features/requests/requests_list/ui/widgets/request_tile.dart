@@ -75,7 +75,7 @@ class RequestTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Text(
-                        statusNames[status] ?? "Unknown",
+                        statusToNames[status] ?? "Unknown",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

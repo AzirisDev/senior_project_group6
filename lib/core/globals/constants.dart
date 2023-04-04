@@ -24,13 +24,22 @@ enum Status {
   declined,
 }
 
-Map<Status, String> statusNames = {
+Map<Status, String> statusToNames = {
   Status.active: "Active",
   Status.inProgress: "In Progress",
   Status.pending: "Pending",
   Status.success: "Success",
   Status.canceled: "Canceled",
   Status.declined: "Declined",
+};
+
+Map<String, Status> namesToStatus = {
+  "active": Status.active,
+  "inprogress": Status.inProgress,
+  "pending": Status.pending,
+  "success": Status.success,
+  "canceled": Status.canceled,
+  "declined": Status.declined,
 };
 
 Map<Status, Color> statusColors = {
