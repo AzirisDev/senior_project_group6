@@ -6,6 +6,8 @@ import 'package:senior_project_group6/features/auth/common/injections/login_repo
 import 'package:senior_project_group6/features/auth/common/injections/sign_up_repository_di.dart';
 
 import '../features/splash/splash_page.dart';
+import 'package:senior_project_group6/features/requests/common/injections/requests_repository_di.dart';
+import 'package:senior_project_group6/features/requests/requests_list/cubit/requests_list_cubit.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -24,6 +26,11 @@ class _AppState extends State<App> {
             loginRepository: LoginRepositoryInject.loginRepository()!,
             signUpRepository: SignUpRepositoryInject.signUpRepository()!,
             cacheStorage: CacheStorage(),
+          ),
+        ),
+        BlocProvider<RequestsListCubit>(
+          create: (context) => RequestsListCubitImpl(
+            RequestsRepositoryInject.requestsRepository()!,
           ),
         ),
       ],

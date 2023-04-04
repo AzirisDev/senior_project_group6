@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/features/create_request/ui/create_request_page.dart';
 import 'package:senior_project_group6/features/profile/ui/profile_page.dart';
-import 'package:senior_project_group6/features/requests/ui/requests_page.dart';
+import 'package:senior_project_group6/features/requests/requests_list/ui/requests_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Widget> _children = const [
-    RequestsPage(),
+    RequestsListPage(),
     ProfilePage(),
     CreateRequestsPage(),
   ];

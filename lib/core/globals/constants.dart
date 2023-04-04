@@ -9,6 +9,9 @@ const String authenticationSignUpEndpoint = '$baseUrl/auth/signUp';
 
 const String userIdBox = "userIdBox";
 
+// Requests
+const String requestsEndpoint = '$baseUrl/requests/student';
+
 enum Status {
   active,
   inProgress,
