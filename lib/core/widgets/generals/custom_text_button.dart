@@ -5,12 +5,14 @@ class CustomTextButton extends StatelessWidget {
   final void Function()? onPressed;
   final String buttonText;
   final bool isLoading;
+  final bool enabled;
 
   const CustomTextButton({
     super.key,
     required this.onPressed,
     required this.buttonText,
     this.isLoading = false,
+    this.enabled = true,
   });
 
   @override
@@ -18,12 +20,18 @@ class CustomTextButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
-        backgroundColor: MaterialStateProperty.all(AppColor.primaryBlue),
+        backgroundColor: enabled
+            ? MaterialStateProperty.all(AppColor.primaryBlue)
+            : MaterialStateProperty.all(AppColor.grey),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         ),
       ),
-      onPressed: onPressed,
+      onPressed: () {
+        if (enabled) {
+          onPressed!();
+        }
+      },
       child: Center(
         child: isLoading
             ? const SizedBox(

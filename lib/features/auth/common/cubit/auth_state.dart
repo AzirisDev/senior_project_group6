@@ -33,3 +33,24 @@ class LogoutState extends AuthState {
   @override
   List<Object> get props => [];
 }
+
+class SignUpLoadingState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class SignUpSuccessState extends AuthState {
+  SignUpSuccessState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class SignUpErrorState extends AuthState {
+  final String errorMessage;
+
+  SignUpErrorState(this.errorMessage);
+
+  @override
+  List<Object> get props => [errorMessage];
+}

@@ -42,6 +42,36 @@ class _LoginPageState extends State<LoginPage> {
               Keys.globalNavigationKey.currentState!
                   .pushReplacementNamed('home');
             }
+
+            if (state is LoginErrorState) {
+              _isLoading = false;
+
+              final snackBar = SnackBar(
+                elevation: 20,
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.error,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      state.errorMessage,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                backgroundColor: (const Color.fromARGB(255, 194, 35, 24)),
+              );
+
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(snackBar);
+            }
           },
           builder: (context, state) {
             return Padding(
@@ -74,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _passwordController,
                       labelText: "Password",
                       hintText: "********",
+                      obscureText: true,
                       prefixIcon: const Icon(
                         Icons.lock,
                         color: AppColor.grey,

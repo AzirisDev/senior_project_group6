@@ -12,7 +12,7 @@ class LoginApiProviderImpl
   @override
   Future<MainUser> login(String email, String password) async {
     final object = await provideData(
-      endPoint: authenticationEndpoint,
+      endPoint: authenticationLogInEndpoint,
       body: {
         'Password': password,
         'UniversityEmail': email,
@@ -20,10 +20,4 @@ class LoginApiProviderImpl
     );
     return MainUser.fromJson(object);
   }
-
-  // @override
-  // Future<Customer> getUser(String? token) async {
-  //   final object = await provideData(endPoint: getUserEndpoint, token: token);
-  //   return Customer.fromJson(object);
-  // }
 }

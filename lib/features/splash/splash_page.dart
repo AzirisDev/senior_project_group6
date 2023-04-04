@@ -12,7 +12,7 @@ class SplashPage extends StatelessWidget {
 
     return Navigator(
       key: Keys.globalNavigationKey,
-      initialRoute: 'splash',
+      initialRoute: 'login',
       onGenerateRoute: RouterGlobal.generateRoute,
     );
   }
