@@ -15,6 +15,9 @@ const String requestsEndpoint = '$baseUrl/requests/student';
 // Users
 const String usersEndpoint = '$baseUrl/user';
 
+// Services
+const String servicesEndpoint = '$baseUrl/department/departments';
+
 enum Status {
   active,
   inProgress,

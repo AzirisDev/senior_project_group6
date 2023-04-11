@@ -5,6 +5,7 @@ import 'package:senior_project_group6/features/auth/model/user.dart';
 
 abstract class RequestsApiProvider<T> {
   Future<DataResponse> getRequests(String studentId);
+  Future<DataResponse> getServices();
 }
 
 class RequestsApiProviderImpl
@@ -13,6 +14,12 @@ class RequestsApiProviderImpl
   @override
   Future<DataResponse> getRequests(String studentId) async {
     final object = await provideData(endPoint: '$requestsEndpoint/$studentId');
+    return DataResponse.fromJson(object);
+  }
+
+  @override
+  Future<DataResponse> getServices() async {
+    final object = await provideData(endPoint: servicesEndpoint);
     return DataResponse.fromJson(object);
   }
 }
