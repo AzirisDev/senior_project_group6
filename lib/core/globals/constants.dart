@@ -8,6 +8,7 @@ const String authenticationLogInEndpoint = '$baseUrl/auth/logIn';
 const String authenticationSignUpEndpoint = '$baseUrl/auth/signUp';
 
 const String userIdBox = "userIdBox";
+const String userRoleBox = "userRoleBox";
 
 // Requests
 const String requestsEndpoint = '$baseUrl/requests/student';

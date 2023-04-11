@@ -4,15 +4,12 @@ import 'package:senior_project_group6/core/globals/constants.dart';
 import 'package:senior_project_group6/core/utils/mixin.dart';
 
 abstract class SignUpApiProvider<T> {
-  Future<T> signUp(
-      String email, String password, String fullName, String phoneNumber);
+  Future<int?> signUp(String email, String password, String fullName, String phoneNumber);
 }
 
-class SignUpApiProviderImpl
-    with ApiProviderMixin
-    implements SignUpApiProvider<int> {
+class SignUpApiProviderImpl with ApiProviderMixin implements SignUpApiProvider<int> {
   @override
-  Future<int> signUp(
+  Future<int?> signUp(
     String email,
     String password,
     String fullName,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project_group6/core/globals/constants.dart';
+import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/core/utils/date_time_formatter.dart';
 import 'package:senior_project_group6/core/widgets/generals/custom_text_button.dart';
@@ -18,6 +19,22 @@ class RequestOverviewPage extends StatefulWidget {
 }
 
 class _RequestOverviewPageState extends State<RequestOverviewPage> {
+  bool isWorker = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getWorker();
+  }
+
+  void getWorker() async {
+    var role = await CacheStorage().getUserRole();
+    if (role.toString().toLowerCase() == "worker") {
+      isWorker = true;
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,10 +151,11 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
               const SizedBox(
                 height: 30,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: CustomTextButton(onPressed: () {}, buttonText: "Update status"),
-              )
+              if (isWorker)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: CustomTextButton(onPressed: () {}, buttonText: "Update status"),
+                )
             ],
           ),
         ),
