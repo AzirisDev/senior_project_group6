@@ -19,15 +19,11 @@ abstract class RequestsApiProvider<T> {
   );
 }
 
-class RequestsApiProviderImpl
-    with ApiProviderMixin
-    implements RequestsApiProvider<MainUser> {
+class RequestsApiProviderImpl with ApiProviderMixin implements RequestsApiProvider<MainUser> {
   @override
   Future<DataResponse> getRequests(String userId) async {
     final role = await CacheStorage().getUserRole();
-    final requestsEndpoint = role?.toLowerCase() == 'student'
-        ? studentRequestsEndpoint
-        : workerRequestsEndpoint;
+    final requestsEndpoint = role?.toLowerCase() == 'worker' ? workerRequestsEndpoint : studentRequestsEndpoint;
     final object = await provideData(endPoint: '$requestsEndpoint/$userId');
     return DataResponse.fromJson(object);
   }
