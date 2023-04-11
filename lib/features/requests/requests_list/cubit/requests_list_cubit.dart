@@ -21,8 +21,8 @@ class RequestsListCubitImpl extends RequestsListCubit {
   @override
   void getRequests() async {
     emit(RequestsLoadingState());
-    final studentId = await cacheStorage.getUserId();
-    final data = await repository.getRequests(studentId.toString());
+    final userId = await cacheStorage.getUserId();
+    final data = await repository.getRequests(userId.toString());
     if (data?.object != null) {
       final List<ServiceRequest> result = [];
 

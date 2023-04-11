@@ -11,9 +11,9 @@ class RequestsRepositoryImpl implements RequestsRepository {
   RequestsRepositoryImpl({required this.apiProvider});
 
   @override
-  Future<AppResponse> getRequests(String studentId) async {
+  Future<AppResponse> getRequests(String userId) async {
     try {
-      final data = await apiProvider.getRequests(studentId);
+      final data = await apiProvider.getRequests(userId);
       return AppResponse.success(data);
     } on Exception catch (e) {
       return AppResponse.withError(e.toString());

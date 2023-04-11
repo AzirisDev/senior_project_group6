@@ -11,7 +11,8 @@ const String userIdBox = "userIdBox";
 const String userRoleBox = "userRoleBox";
 
 // Requests
-const String requestsEndpoint = '$baseUrl/requests/student';
+const String studentRequestsEndpoint = '$baseUrl/requests/student';
+const String workerRequestsEndpoint = '$baseUrl/requests/service-worker';
 
 // Users
 const String usersEndpoint = '$baseUrl/user';
