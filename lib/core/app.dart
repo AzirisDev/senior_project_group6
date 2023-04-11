@@ -4,6 +4,7 @@ import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/features/auth/common/cubit/auth_cubit.dart';
 import 'package:senior_project_group6/features/auth/common/injections/login_repository_di.dart';
 import 'package:senior_project_group6/features/auth/common/injections/sign_up_repository_di.dart';
+import 'package:senior_project_group6/features/create_request/cubit/create_request_cubit.dart';
 import 'package:senior_project_group6/features/profile/cubit/profile_cubit.dart';
 import 'package:senior_project_group6/features/profile/injections/profile_repository_di.dart';
 
@@ -40,6 +41,12 @@ class _AppState extends State<App> {
           create: (context) => ProfileCubitImpl(
             cacheStorage: CacheStorage(),
             profileRepository: ProfileRepositoryInject.profileRepository()!,
+          ),
+        ),
+        BlocProvider<CreateRequestCubit>(
+          create: (context) => CreateRequestCubitImpl(
+            cacheStorage: CacheStorage(),
+            repository: RequestsRepositoryInject.requestsRepository()!,
           ),
         ),
       ],

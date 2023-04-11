@@ -45,7 +45,6 @@ class AuthCubitImpl extends AuthCubit {
         await signUpRepository.signUp(email, password, fullName, phoneNumber);
     if (data?.object != null) {
       cacheStorage.setUserId(data?.object);
-      print("ID ${data?.object}");
       emit(SignUpSuccessState());
     } else {
       emit(SignUpErrorState("Sign Up error"));
