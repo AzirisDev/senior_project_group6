@@ -13,9 +13,14 @@ const String userRoleBox = "userRoleBox";
 // Requests
 const String studentRequestsEndpoint = '$baseUrl/requests/student';
 const String workerRequestsEndpoint = '$baseUrl/requests/service-worker';
+const String requestsEndpoint = '$baseUrl/requests/student';
+const String createRequestEndpoint = '$baseUrl/requests/create';
 
 // Users
 const String usersEndpoint = '$baseUrl/user';
+
+// Services
+const String servicesEndpoint = '$baseUrl/department/departments';
 
 enum Status {
   active,
