@@ -11,6 +11,7 @@ const String userIdBox = "userIdBox";
 
 // Requests
 const String requestsEndpoint = '$baseUrl/requests/student';
+const String createRequestEndpoint = '$baseUrl/requests/create';
 
 // Users
 const String usersEndpoint = '$baseUrl/user';

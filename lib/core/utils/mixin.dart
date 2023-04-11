@@ -52,6 +52,17 @@ mixin ApiProviderMixin<T> {
           }
           response = await http.Response.fromStream(await request.send());
         } else {
+          if (param != null) {
+            for (final e in param.entries) {
+              endPoint += param.entries.first.key == e.key ? '?' : '&';
+              if (e.value is List) {
+                endPoint +=
+                    e.value.map((x) => '${e.key}=$x').toList().join('&');
+              } else {
+                endPoint += '${e.key}=${e.value}';
+              }
+            }
+          }
           response = await httpClient
               .post(
                 Uri.parse(endPoint),

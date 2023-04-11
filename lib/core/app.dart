@@ -45,6 +45,7 @@ class _AppState extends State<App> {
         ),
         BlocProvider<CreateRequestCubit>(
           create: (context) => CreateRequestCubitImpl(
+            cacheStorage: CacheStorage(),
             repository: RequestsRepositoryInject.requestsRepository()!,
           ),
         ),

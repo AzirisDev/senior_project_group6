@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:senior_project_group6/core/globals/constants.dart';
 import 'package:senior_project_group6/core/models/data_response.dart';
 import 'package:senior_project_group6/core/utils/mixin.dart';
@@ -6,6 +8,14 @@ import 'package:senior_project_group6/features/auth/model/user.dart';
 abstract class RequestsApiProvider<T> {
   Future<DataResponse> getRequests(String studentId);
   Future<DataResponse> getServices();
+  Future<DataResponse> createRequest(
+    String description,
+    String location,
+    String requestType,
+    String status,
+    String title,
+    String studentId,
+  );
 }
 
 class RequestsApiProviderImpl
@@ -20,6 +30,31 @@ class RequestsApiProviderImpl
   @override
   Future<DataResponse> getServices() async {
     final object = await provideData(endPoint: servicesEndpoint);
+    return DataResponse.fromJson(object);
+  }
+
+  @override
+  Future<DataResponse> createRequest(
+    String description,
+    String location,
+    String requestType,
+    String status,
+    String title,
+    String studentId,
+  ) async {
+    final object = await provideData(
+      endPoint: createRequestEndpoint,
+      param: {
+        'studentId': studentId,
+      },
+      body: jsonEncode({
+        'description': description,
+        'location': location,
+        'requestType': requestType,
+        'status': status,
+        'title': title,
+      }),
+    );
     return DataResponse.fromJson(object);
   }
 }

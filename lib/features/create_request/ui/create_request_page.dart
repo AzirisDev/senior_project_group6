@@ -16,6 +16,8 @@ class CreateRequestsPage extends StatefulWidget {
 class _CreateRequestsPageState extends State<CreateRequestsPage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+
   String? _selectedService;
 
   late CreateRequestCubit _cubit;
@@ -37,17 +39,23 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
       body: SafeArea(
         child: BlocConsumer<CreateRequestCubit, CreateRequestState>(
           listener: (context, state) {
-            if (state is CreateRequestSuccessState) {
+            if (state is GetServicesSuccessState) {
               _selectedService = state.services.first.departmentType;
             }
           },
           builder: (context, state) {
-            if (state is CreateRequestLoadingState) {
+            if (state is CreateRequestLoadingState ||
+                state is GetServicesLoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
 
-            if (state is CreateRequestSuccessState) {
+            if (state is GetServicesSuccessState) {
               return _bodyBuilder(state.services);
+            }
+
+            if (state is CreateRequestSuccessState) {
+              print(state.request.toString());
+              return const Center(child: Text("Request created successfully"));
             }
 
             return const Center(child: Text("Something went wrong"));
@@ -158,6 +166,32 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
+                  "Location",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(
+                    color: AppColor.cloudGrey,
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextField(
+                  controller: locationController,
+                  decoration: const InputDecoration(
+                    fillColor: AppColor.cloudGrey,
+                    border: InputBorder.none,
+                    hintText: "Enter location",
+                    hintStyle: TextStyle(fontWeight: FontWeight.w300),
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
                   "Photos",
                   style: TextStyle(
                     fontSize: 16,
@@ -205,7 +239,14 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
           child: CustomTextButton(
             buttonText: "Create Request",
-            onPressed: () {},
+            onPressed: () {
+              _cubit.createRequest(
+                description: descriptionController.text,
+                location: locationController.text,
+                requestType: _selectedService ?? '',
+                title: titleController.text,
+              );
+            },
           ),
         ),
       ],
