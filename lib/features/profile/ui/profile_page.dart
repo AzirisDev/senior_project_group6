@@ -30,8 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Keys.globalNavigationKey.currentState!
-                  .pushReplacementNamed('login');
+              Keys.globalNavigationKey.currentState!.pushReplacementNamed('login');
             },
             icon: const Icon(Icons.logout_rounded),
           ),
@@ -43,8 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) {
               if (state is ProfileErrorState) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errorMessage)));
               }
             },
             builder: (context, state) {
@@ -73,17 +71,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ProfileInfoTile(
-                      title: state.student.role ?? '', info: "Student"),
+                  ProfileInfoTile(title: state.student.role ?? '', info: "Student"),
                   const SizedBox(height: 12),
-                  ProfileInfoTile(
-                      title: "Email",
-                      info: state.student.universityEmail ?? ''),
+                  ProfileInfoTile(title: "Email", info: state.student.universityEmail ?? ''),
                   const SizedBox(height: 12),
                   ProfileInfoTile(
                     title: "Telephone number",
                     info: state.student.phoneNumber ?? '',
-                    icon: Icons.phone,
+                    prefixIcon: Icons.phone,
                   ),
                 ],
               );

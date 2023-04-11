@@ -3,9 +3,15 @@ import 'package:flutter/material.dart';
 class ProfileInfoTile extends StatelessWidget {
   final String title;
   final String info;
-  final IconData? icon;
-  const ProfileInfoTile(
-      {super.key, required this.title, required this.info, this.icon});
+  final IconData? prefixIcon;
+  final IconData? sufficIcon;
+  const ProfileInfoTile({
+    super.key,
+    required this.title,
+    required this.info,
+    this.prefixIcon,
+    this.sufficIcon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,12 @@ class ProfileInfoTile extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
+            if (sufficIcon != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: Icon(sufficIcon),
+              ),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -38,7 +49,11 @@ class ProfileInfoTile extends StatelessWidget {
                 ],
               ),
             ),
-            if (icon != null) Icon(icon),
+            if (prefixIcon != null)
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Icon(prefixIcon),
+              ),
           ],
         ),
         const Divider()
