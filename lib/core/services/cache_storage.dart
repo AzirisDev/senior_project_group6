@@ -9,6 +9,7 @@ class CacheStorage {
   CacheStorage._internal();
 
   final String userIdKey = "UserIdKey";
+  final String userRoleKey = "UserRoleKey";
 
   Future<int?> getUserId() async {
     var box = await Hive.openBox(userIdBox);
@@ -19,5 +20,16 @@ class CacheStorage {
   void setUserId(int id) async {
     var box = await Hive.openBox(userIdBox);
     box.put(userIdKey, id);
+  }
+
+  Future<String?> getUserRole() async {
+    var box = await Hive.openBox(userRoleBox);
+
+    return box.get(userRoleKey);
+  }
+
+  void setUserRole(String role) async {
+    var box = await Hive.openBox(userRoleBox);
+    box.put(userRoleKey, role);
   }
 }

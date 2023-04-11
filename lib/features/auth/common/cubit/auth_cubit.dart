@@ -8,8 +8,7 @@ import '../repositories/login_repository.dart';
 abstract class AuthCubit extends Cubit<AuthState> {
   AuthCubit(AuthState state) : super(state);
   Future<bool> login(String email, String password);
-  Future<bool> signUp(
-      String email, String password, String fullName, String phoneNumber);
+  Future<bool> signUp(String email, String password, String fullName, String phoneNumber);
   Future logout();
 }
 
@@ -30,6 +29,7 @@ class AuthCubitImpl extends AuthCubit {
     final data = await loginRepository.login(email, password);
     if (data?.object != null && data != null) {
       cacheStorage.setUserId((data?.object as MainUser).id ?? -1);
+      cacheStorage.setUserRole((data?.object as MainUser).role ?? '');
       emit(LoginSuccessState(user: data?.object as MainUser));
     } else {
       emit(LoginErrorState("Login error"));
@@ -38,13 +38,12 @@ class AuthCubitImpl extends AuthCubit {
   }
 
   @override
-  Future<bool> signUp(String email, String password, String fullName,
-      String phoneNumber) async {
+  Future<bool> signUp(String email, String password, String fullName, String phoneNumber) async {
     emit(SignUpLoadingState());
-    final data =
-        await signUpRepository.signUp(email, password, fullName, phoneNumber);
+    final data = await signUpRepository.signUp(email, password, fullName, phoneNumber);
     if (data?.object != null) {
       cacheStorage.setUserId(data?.object);
+      cacheStorage.setUserRole("STUDENT");
       emit(SignUpSuccessState());
     } else {
       emit(SignUpErrorState("Sign Up error"));

@@ -20,9 +20,65 @@ class RequestsRepositoryImpl implements RequestsRepository {
   RequestsRepositoryImpl({required this.apiProvider});
 
   @override
-  Future<AppResponse> getRequests(String studentId) async {
+  Future<AppResponse> getRequests(String userId) async {
     try {
-      final data = await apiProvider.getRequests(studentId);
+      final data = await apiProvider.getRequests(userId);
+      return AppResponse.success(data);
+    } on Exception catch (e) {
+      return AppResponse.withError(e.toString());
+    }
+  }
+
+  @override
+  Future<AppResponse> getServices() async {
+    try {
+      final data = await apiProvider.getServices();
+      return AppResponse.success(data);
+    } on Exception catch (e) {
+      return AppResponse.withError(e.toString());
+    }
+  }
+
+  @override
+  Future<AppResponse> createRequest(
+    String description,
+    String location,
+    String requestType,
+    String status,
+    String title,
+    String studentId,
+  ) async {
+    try {
+      final data = await apiProvider.createRequest(
+          description, location, requestType, status, title, studentId);
+      return AppResponse.success(data);
+    } on Exception catch (e) {
+      return AppResponse.withError(e.toString());
+    }
+  }
+
+  @override
+  Future<AppResponse> getServices() async {
+    try {
+      final data = await apiProvider.getServices();
+      return AppResponse.success(data);
+    } on Exception catch (e) {
+      return AppResponse.withError(e.toString());
+    }
+  }
+
+  @override
+  Future<AppResponse> createRequest(
+    String description,
+    String location,
+    String requestType,
+    String status,
+    String title,
+    String studentId,
+  ) async {
+    try {
+      final data = await apiProvider.createRequest(
+          description, location, requestType, status, title, studentId);
       return AppResponse.success(data);
     } on Exception catch (e) {
       return AppResponse.withError(e.toString());

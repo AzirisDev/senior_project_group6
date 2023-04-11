@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/features/create_request/ui/create_request_page.dart';
 import 'package:senior_project_group6/features/profile/ui/profile_page.dart';
@@ -13,11 +14,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Widget> _children = const [
-    RequestsListPage(),
-    ProfilePage(),
-    CreateRequestsPage(),
+  bool isWorker = false;
+  List<Widget> children = [
+    const RequestsListPage(),
+    const ProfilePage(),
+    const CreateRequestsPage(),
   ];
+  @override
+  void initState() {
+    super.initState();
+    getWorker();
+  }
+
+  void getWorker() async {
+    var role = await CacheStorage().getUserRole();
+    if (role.toString().toLowerCase() == "worker") {
+      isWorker = true;
+      setState(() {});
+    }
+  }
 
   final iconList = [
     Icons.list,
@@ -30,8 +45,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _currentIndex != 2
+      floatingActionButtonLocation: isWorker ? null : FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: !isWorker && _currentIndex != 2
           ? FloatingActionButton(
               backgroundColor: AppColor.primaryBlue,
               onPressed: () {
@@ -52,7 +67,7 @@ class _HomePageState extends State<HomePage> {
         rightCornerRadius: 32,
         onTap: (index) => setState(() => _currentIndex = index),
       ),
-      body: _children[_currentIndex],
+      body: children[_currentIndex],
     );
   }
 }

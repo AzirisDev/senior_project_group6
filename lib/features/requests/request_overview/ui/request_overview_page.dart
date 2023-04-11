@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project_group6/core/globals/constants.dart';
+import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
+import 'package:senior_project_group6/core/utils/date_time_formatter.dart';
 import 'package:senior_project_group6/core/widgets/generals/custom_text_button.dart';
 import 'package:senior_project_group6/features/profile/ui/widgets/profile_info_tile.dart';
+import 'package:senior_project_group6/features/requests/common/model/service_request.dart';
 
 class RequestOverviewPage extends StatefulWidget {
-  final String title;
-  final String date;
-  final String location;
-  final String type;
-  final Status status;
+  final ServiceRequest serviceRequest;
   const RequestOverviewPage({
     super.key,
-    required this.title,
-    required this.date,
-    required this.location,
-    required this.type,
-    required this.status,
+    required this.serviceRequest,
   });
 
   @override
@@ -24,6 +19,22 @@ class RequestOverviewPage extends StatefulWidget {
 }
 
 class _RequestOverviewPageState extends State<RequestOverviewPage> {
+  bool isWorker = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getWorker();
+  }
+
+  void getWorker() async {
+    var role = await CacheStorage().getUserRole();
+    if (role.toString().toLowerCase() == "worker") {
+      isWorker = true;
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,88 +65,99 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.title,
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w200,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.serviceRequest.title ?? 'Unknown',
+                      style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w200,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ProfileInfoTile(
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ProfileInfoTile(
                       title: "Status",
-                      info: statusToNames[widget.status] ?? ""),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  ProfileInfoTile(title: "Date", info: widget.date),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const ProfileInfoTile(
-                      title: "Description",
-                      info:
-                          "Description text. We may add a button to open a separate page with full description."),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  ProfileInfoTile(
-                    title: "Location",
-                    info: widget.location,
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  ProfileInfoTile(
-                    title: "Request Type",
-                    info: widget.type,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 100,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: 5,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: AppColor.cloudGrey,
-                              borderRadius: BorderRadius.circular(10)),
-                        );
-                      },
+                      info: widget.serviceRequest.status ?? 'Unknown',
+                      sufficIcon: Icons.check_box_rounded,
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    ProfileInfoTile(
+                      title: "Date",
+                      info: DateTimeFormatter().convertDateFormat(
+                        widget.serviceRequest.timeCreated ?? DateTime.now().toString(),
+                      ),
+                      sufficIcon: Icons.date_range_rounded,
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    ProfileInfoTile(
+                      title: "Description",
+                      info: widget.serviceRequest.description ?? 'No description',
+                      sufficIcon: Icons.description_rounded,
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    ProfileInfoTile(
+                      title: "Location",
+                      info: widget.serviceRequest.location ?? 'Unknown',
+                      sufficIcon: Icons.location_on_rounded,
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    ProfileInfoTile(
+                      title: "Request Type",
+                      info: widget.serviceRequest.requestType ?? 'Unknown',
+                      sufficIcon: Icons.category_rounded,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: CustomTextButton(
-                  onPressed: () {}, buttonText: "Update status"),
-            )
-          ],
+              SizedBox(
+                height: 100,
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: 5,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(color: AppColor.cloudGrey, borderRadius: BorderRadius.circular(10)),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              if (isWorker)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: CustomTextButton(onPressed: () {}, buttonText: "Update status"),
+                )
+            ],
+          ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senior_project_group6/core/globals/constants.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
+import 'package:senior_project_group6/core/utils/date_time_formatter.dart';
 import 'package:senior_project_group6/features/requests/request_overview/ui/request_overview_page.dart';
 import 'package:senior_project_group6/features/requests/requests_list/cubit/requests_list_cubit.dart';
 import 'package:senior_project_group6/features/requests/requests_list/cubit/requests_list_state.dart';
@@ -48,11 +49,7 @@ class _RequestsListPageState extends State<RequestsListPage> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => RequestOverviewPage(
-                            title: state.requests[index].title ?? '',
-                            date: 'Today',
-                            location: state.requests[index].location ?? '',
-                            type: state.requests[index].requestType ?? '',
-                            status: Status.active,
+                            serviceRequest: state.requests[index],
                           ),
                         ),
                       );
@@ -61,10 +58,10 @@ class _RequestsListPageState extends State<RequestsListPage> {
                       color: Colors.transparent,
                       child: RequestTile(
                         title: state.requests[index].title ?? '',
-                        date: 'Today',
+                        date: DateTimeFormatter().convertDateFormat(state.requests[index].timeCreated ?? DateTime.now().toString()),
                         location: state.requests[index].location ?? '',
                         type: state.requests[index].requestType ?? '',
-                        status: Status.active,
+                        status: namesToStatus[state.requests[index].status?.toLowerCase()] ?? Status.active,
                       ),
                     ),
                   );

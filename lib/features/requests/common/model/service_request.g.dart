@@ -13,13 +13,27 @@ ServiceRequest _$ServiceRequestFromJson(Map<String, dynamic> json) =>
       media: json['media'] as String?,
       requestType: json['requestType'] as String?,
       title: json['title'] as String?,
+      serviceWorkerId: json['serviceWorkerId'] as int?,
+      status: json['status'] as String?,
+      studentId: json['studentId'] as int?,
+      id: json['id'] as int?,
+      studentName: json['studentName'] as String?,
+      studentNumber: json['studentNumber'] as String?,
+      timeCreated: json['timeCreated'] as String?,
     );
 
 Map<String, dynamic> _$ServiceRequestToJson(ServiceRequest instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'description': instance.description,
       'location': instance.location,
       'media': instance.media,
       'requestType': instance.requestType,
       'title': instance.title,
+      'serviceWorkerId': instance.serviceWorkerId,
+      'status': instance.status,
+      'studentId': instance.studentId,
+      'studentName': instance.studentName,
+      'studentNumber': instance.studentNumber,
+      'timeCreated': instance.timeCreated,
     };
