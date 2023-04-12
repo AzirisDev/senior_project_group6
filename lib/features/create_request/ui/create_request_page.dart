@@ -244,6 +244,7 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
                   location: locationController.text,
                   requestType: _selectedService ?? '',
                   title: titleController.text,
+                  selectedImages: _selectedImages,
                 );
               },
             ),

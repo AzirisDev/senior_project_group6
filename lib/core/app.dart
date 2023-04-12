@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senior_project_group6/core/services/cache_storage.dart';
@@ -53,6 +54,7 @@ class _AppState extends State<App> {
           create: (context) => CreateRequestCubitImpl(
             cacheStorage: CacheStorage(),
             repository: RequestsRepositoryInject.requestsRepository()!,
+            firebaseStorage: FirebaseStorage.instance,
           ),
         ),
       ],
