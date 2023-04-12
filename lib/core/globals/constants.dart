@@ -15,6 +15,7 @@ const String studentRequestsEndpoint = '$baseUrl/requests/student';
 const String workerRequestsEndpoint = '$baseUrl/requests/service-worker';
 const String requestsEndpoint = '$baseUrl/requests/student';
 const String createRequestEndpoint = '$baseUrl/requests/create';
+const String changeStatusEndpoint = '$baseUrl/requests/update-status';
 
 // Users
 const String usersEndpoint = '$baseUrl/user';
@@ -43,7 +44,7 @@ Map<Status, String> statusToNames = {
 
 Map<String, Status> namesToStatus = {
   "active": Status.active,
-  "inprogress": Status.inProgress,
+  "in_progress": Status.inProgress,
   "pending": Status.pending,
   "success": Status.success,
   "canceled": Status.canceled,

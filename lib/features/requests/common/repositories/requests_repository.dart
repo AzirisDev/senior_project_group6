@@ -4,6 +4,7 @@ import 'package:senior_project_group6/features/requests/common/providers/request
 abstract class RequestsRepository<T> {
   Future<T> getRequests(String studentId);
   Future<T> getServices();
+  Future<T> changeStatus(String requestId, String status);
   Future<T> createRequest(
     String description,
     String location,
@@ -49,8 +50,17 @@ class RequestsRepositoryImpl implements RequestsRepository {
     String studentId,
   ) async {
     try {
-      final data = await apiProvider.createRequest(
-          description, location, requestType, status, title, studentId);
+      final data = await apiProvider.createRequest(description, location, requestType, status, title, studentId);
+      return AppResponse.success(data);
+    } on Exception catch (e) {
+      return AppResponse.withError(e.toString());
+    }
+  }
+
+  @override
+  Future<AppResponse> changeStatus(String requestId, String status) async {
+    try {
+      final data = await apiProvider.changeStatus(requestId, status);
       return AppResponse.success(data);
     } on Exception catch (e) {
       return AppResponse.withError(e.toString());

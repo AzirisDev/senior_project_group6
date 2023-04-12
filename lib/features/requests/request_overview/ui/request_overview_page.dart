@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senior_project_group6/core/globals/constants.dart';
 import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
@@ -6,6 +7,8 @@ import 'package:senior_project_group6/core/utils/date_time_formatter.dart';
 import 'package:senior_project_group6/core/widgets/generals/custom_text_button.dart';
 import 'package:senior_project_group6/features/profile/ui/widgets/profile_info_tile.dart';
 import 'package:senior_project_group6/features/requests/common/model/service_request.dart';
+import 'package:senior_project_group6/features/requests/request_overview/ui/status_modal_bottom_sheet.dart';
+import 'package:senior_project_group6/features/requests/requests_list/cubit/requests_list_cubit.dart';
 
 class RequestOverviewPage extends StatefulWidget {
   final ServiceRequest serviceRequest;
@@ -154,7 +157,28 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
               if (isWorker)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: CustomTextButton(onPressed: () {}, buttonText: "Update status"),
+                  child: CustomTextButton(
+                      onPressed: () async {
+                        final result = await showModalBottomSheet(
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          builder: (BuildContext context) {
+                            return StatusModalBottomSheet(
+                              status: widget.serviceRequest.status ?? "",
+                              requestId: widget.serviceRequest.id.toString(),
+                            );
+                          },
+                        );
+                        if (result && context.mounted) {
+                          BlocProvider.of<RequestsListCubit>(context).getRequests();
+                          Navigator.pop(context);
+                        }
+                      },
+                      buttonText: "Update status"),
                 )
             ],
           ),
