@@ -50,6 +50,8 @@ dependencies:
   hive: ^2.2.3
   path_provider: ^2.0.14
   intl: ^0.18.0
+  image_picker: ^0.8.7+2
+  multi_image_picker: ^4.8.01
 dev_dependencies:
   flutter_test:
     sdk: flutter
