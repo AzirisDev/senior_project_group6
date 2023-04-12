@@ -7,6 +7,7 @@ import 'package:senior_project_group6/features/auth/common/injections/sign_up_re
 import 'package:senior_project_group6/features/create_request/cubit/create_request_cubit.dart';
 import 'package:senior_project_group6/features/profile/cubit/profile_cubit.dart';
 import 'package:senior_project_group6/features/profile/injections/profile_repository_di.dart';
+import 'package:senior_project_group6/features/requests/request_overview/cubit/request_status_cubit.dart';
 
 import '../features/splash/splash_page.dart';
 import 'package:senior_project_group6/features/requests/common/injections/requests_repository_di.dart';
@@ -29,6 +30,11 @@ class _AppState extends State<App> {
             loginRepository: LoginRepositoryInject.loginRepository()!,
             signUpRepository: SignUpRepositoryInject.signUpRepository()!,
             cacheStorage: CacheStorage(),
+          ),
+        ),
+        BlocProvider<RequestStatusCubit>(
+          create: (context) => RequestStatusCubitImpl(
+            repository: RequestsRepositoryInject.requestsRepository()!,
           ),
         ),
         BlocProvider<RequestsListCubit>(

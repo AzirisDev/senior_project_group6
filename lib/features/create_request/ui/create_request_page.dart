@@ -5,6 +5,7 @@ import 'package:senior_project_group6/core/widgets/generals/custom_text_button.d
 import 'package:senior_project_group6/features/create_request/cubit/create_request_cubit.dart';
 import 'package:senior_project_group6/features/create_request/cubit/create_request_state.dart';
 import 'package:senior_project_group6/features/create_request/model/service.dart';
+import 'package:senior_project_group6/features/requests/requests_list/cubit/requests_list_cubit.dart';
 
 class CreateRequestsPage extends StatefulWidget {
   const CreateRequestsPage({super.key});
@@ -44,8 +45,7 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
             }
           },
           builder: (context, state) {
-            if (state is CreateRequestLoadingState ||
-                state is GetServicesLoadingState) {
+            if (state is CreateRequestLoadingState || state is GetServicesLoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
 
@@ -54,7 +54,7 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
             }
 
             if (state is CreateRequestSuccessState) {
-              print(state.request.toString());
+              BlocProvider.of<RequestsListCubit>(context).getRequests();
               return const Center(child: Text("Request created successfully"));
             }
 
@@ -85,11 +85,8 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: AppColor.cloudGrey,
-                    borderRadius: BorderRadius.circular(10)),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(color: AppColor.cloudGrey, borderRadius: BorderRadius.circular(10)),
                 child: DropdownButton<String>(
                   value: _selectedService,
                   onChanged: (newValue) {
@@ -119,11 +116,8 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: AppColor.cloudGrey,
-                    borderRadius: BorderRadius.circular(10)),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(color: AppColor.cloudGrey, borderRadius: BorderRadius.circular(10)),
                 child: TextField(
                   controller: titleController,
                   decoration: const InputDecoration(
@@ -145,11 +139,8 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: AppColor.cloudGrey,
-                    borderRadius: BorderRadius.circular(10)),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(color: AppColor.cloudGrey, borderRadius: BorderRadius.circular(10)),
                 child: TextField(
                   controller: descriptionController,
                   maxLines: 6,
@@ -174,11 +165,8 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: AppColor.cloudGrey,
-                    borderRadius: BorderRadius.circular(10)),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(color: AppColor.cloudGrey, borderRadius: BorderRadius.circular(10)),
                 child: TextField(
                   controller: locationController,
                   decoration: const InputDecoration(
@@ -217,9 +205,7 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
                       margin: const EdgeInsets.only(right: 10),
                       height: 100,
                       width: 100,
-                      decoration: BoxDecoration(
-                          color: AppColor.cloudGrey,
-                          borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(color: AppColor.cloudGrey, borderRadius: BorderRadius.circular(10)),
                       child: index == 0
                           ? const Icon(
                               Icons.add_a_photo_rounded,
