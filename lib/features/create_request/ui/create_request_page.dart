@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
@@ -29,8 +27,6 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
   late CreateRequestCubit _cubit;
 
   List<File> _selectedImages = [];
-
-  List<Asset> _images = [];
 
   @override
   void initState() {
@@ -204,7 +200,7 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
             child: CustomTextButton(
               buttonText: "Choose photos",
               onPressed: () async {
-                final List<XFile> images = await ImagePicker().pickMultiImage(imageQuality: 80);
+                final List<XFile> images = await ImagePicker().pickMultiImage();
 
                 setState(() {
                   _selectedImages = images.map((image) => File(image.path)).toList();
