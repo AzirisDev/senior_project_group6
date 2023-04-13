@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +63,7 @@ class CreateRequestCubitImpl extends CreateRequestCubit {
   }) async {
     emit(CreateRequestLoadingState());
 
-    final downloadUrls = await _uploadImages(selectedImages);
+    final downloadUrls = _uploadImages(selectedImages);
 
     final studentId = await cacheStorage.getUserId();
 
@@ -73,6 +74,7 @@ class CreateRequestCubitImpl extends CreateRequestCubit {
       'ACTIVE',
       title,
       studentId.toString(),
+      downloadUrls,
     );
 
     if (data?.object != null) {
@@ -82,28 +84,17 @@ class CreateRequestCubitImpl extends CreateRequestCubit {
     }
   }
 
-  Future<List<String>> _uploadImages(List<File> imageList) async {
+  List<String> _uploadImages(List<File> imageList) {
     List<String> downloadURLs = [];
     for (int i = 0; i < imageList.length; i++) {
-      String downloadURL = await _uploadImage(imageList[i]);
+      String downloadURL = encodeImage(imageList[i]);
       downloadURLs.add(downloadURL);
     }
     return downloadURLs;
   }
 
-  Future<String> _uploadImage(File file) async {
-    // Create a unique filename for the uploaded image
-    String filename = "${DateTime.now().millisecondsSinceEpoch}.jpg";
-
-    // Create a reference to the image file on Firebase Storage
-    Reference ref = firebaseStorage.ref().child("images").child(filename);
-
-    // Upload the file to Firebase Storage
-    TaskSnapshot task = await ref.putFile(file);
-
-    // Get the download URL of the uploaded file
-    String downloadURL = await task.ref.getDownloadURL();
-
-    return downloadURL;
+  String encodeImage(File image) {
+    List<int> imageBytes = image.readAsBytesSync();
+    return base64Encode(imageBytes);
   }
 }

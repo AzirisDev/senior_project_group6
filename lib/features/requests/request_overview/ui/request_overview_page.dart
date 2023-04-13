@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senior_project_group6/core/globals/constants.dart';
@@ -23,11 +26,13 @@ class RequestOverviewPage extends StatefulWidget {
 
 class _RequestOverviewPageState extends State<RequestOverviewPage> {
   bool isWorker = false;
+  List<File> images = [];
 
   @override
   void initState() {
     super.initState();
     getWorker();
+    convertBase64ImagesToFiles(widget.serviceRequest.media ?? []);
   }
 
   void getWorker() async {
@@ -35,6 +40,16 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
     if (role.toString().toLowerCase() == "worker") {
       isWorker = true;
       setState(() {});
+    }
+  }
+
+  void convertBase64ImagesToFiles(List<String> base64Images) {
+    for (String base64Image in base64Images) {
+      List<int> bytes = base64.decode(base64Image);
+      String tempPath = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+      File file = File(tempPath);
+      file.writeAsBytesSync(bytes);
+      images.add(file);
     }
   }
 
@@ -128,27 +143,26 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 100,
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        itemCount: 5,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(color: AppColor.cloudGrey, borderRadius: BorderRadius.circular(10)),
-                          );
-                        },
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                child: SizedBox(
+                  height: 100,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: images.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              margin: const EdgeInsets.only(right: 8.0),
+                              child: Image.file(images[index]),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(

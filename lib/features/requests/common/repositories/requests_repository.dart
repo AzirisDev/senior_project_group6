@@ -12,6 +12,7 @@ abstract class RequestsRepository<T> {
     String status,
     String title,
     String studentId,
+    List<String> media,
   );
 }
 
@@ -48,9 +49,10 @@ class RequestsRepositoryImpl implements RequestsRepository {
     String status,
     String title,
     String studentId,
+    List<String> media,
   ) async {
     try {
-      final data = await apiProvider.createRequest(description, location, requestType, status, title, studentId);
+      final data = await apiProvider.createRequest(description, location, requestType, status, title, studentId, media);
       return AppResponse.success(data);
     } on Exception catch (e) {
       return AppResponse.withError(e.toString());

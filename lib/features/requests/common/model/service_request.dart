@@ -9,7 +9,7 @@ class ServiceRequest {
   final int? id;
   final String? description;
   final String? location;
-  final String? media;
+  final List<String>? media;
   final String? requestType;
   final String? title;
   final int? serviceWorkerId;
