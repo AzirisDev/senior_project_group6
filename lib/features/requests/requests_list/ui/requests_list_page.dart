@@ -62,6 +62,7 @@ class _RequestsListPageState extends State<RequestsListPage> {
                         location: state.requests[index].location ?? '',
                         type: state.requests[index].requestType ?? '',
                         status: namesToStatus[state.requests[index].status?.toLowerCase()] ?? Status.active,
+                        imageUrl: state.requests[index].media != null && state.requests[index].media!.isNotEmpty ? state.requests[index].media!.first : null,
                       ),
                     ),
                   );

@@ -63,7 +63,7 @@ class CreateRequestCubitImpl extends CreateRequestCubit {
   }) async {
     emit(CreateRequestLoadingState());
 
-    final downloadUrls = _uploadImages(selectedImages);
+    final downloadUrls = await _uploadImagesToFB(selectedImages);
 
     final studentId = await cacheStorage.getUserId();
 
@@ -77,8 +77,8 @@ class CreateRequestCubitImpl extends CreateRequestCubit {
       downloadUrls,
     );
 
-    if (data?.object != null) {
-      emit(CreateRequestSuccessState(request: ServiceRequest.fromJson(data?.object.data)));
+    if (data?.object != null && data?.object.status == 'OK') {
+      emit(CreateRequestSuccessState());
     } else {
       emit(CreateRequestErrorState(data.errorMessage));
     }
@@ -96,5 +96,28 @@ class CreateRequestCubitImpl extends CreateRequestCubit {
   String encodeImage(File image) {
     List<int> imageBytes = image.readAsBytesSync();
     return base64Encode(imageBytes);
+  }
+
+  Future<List<String>> _uploadImagesToFB(List<File> imageList) async {
+    List<String> downloadURLs = [];
+    for (int i = 0; i < imageList.length; i++) {
+      String downloadURL = await _uploadImage(imageList[i]);
+      downloadURLs.add(downloadURL);
+    }
+    return downloadURLs;
+  }
+
+  Future<String> _uploadImage(File file) async {
+    // Create a unique filename for the uploaded image
+    String filename = "${DateTime.now().millisecondsSinceEpoch}.jpg";
+
+    // Create a reference to the image file on Firebase Storage
+    Reference ref = firebaseStorage.ref().child("images").child(filename);
+
+    // Upload the file to Firebase Storage
+    TaskSnapshot task = await ref.putFile(file);
+
+    // Get the download URL of the uploaded file
+    return await task.ref.getDownloadURL();
   }
 }

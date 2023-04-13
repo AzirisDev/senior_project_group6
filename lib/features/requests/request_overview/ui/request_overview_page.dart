@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senior_project_group6/core/globals/constants.dart';
 import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/core/utils/date_time_formatter.dart';
@@ -32,7 +30,6 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
   void initState() {
     super.initState();
     getWorker();
-    convertBase64ImagesToFiles(widget.serviceRequest.media ?? []);
   }
 
   void getWorker() async {
@@ -40,16 +37,6 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
     if (role.toString().toLowerCase() == "worker") {
       isWorker = true;
       setState(() {});
-    }
-  }
-
-  void convertBase64ImagesToFiles(List<String> base64Images) {
-    for (String base64Image in base64Images) {
-      List<int> bytes = base64.decode(base64Image);
-      String tempPath = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-      File file = File(tempPath);
-      file.writeAsBytesSync(bytes);
-      images.add(file);
     }
   }
 
@@ -149,18 +136,20 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
                   height: 100,
                   child: Row(
                     children: [
-                      Expanded(
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: images.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              margin: const EdgeInsets.only(right: 8.0),
-                              child: Image.file(images[index]),
-                            );
-                          },
-                        ),
-                      ),
+                      widget.serviceRequest.media != null && widget.serviceRequest.media!.isNotEmpty
+                          ? Expanded(
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: widget.serviceRequest.media!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    margin: const EdgeInsets.only(right: 8.0),
+                                    child: Image.network(widget.serviceRequest.media![index]),
+                                  );
+                                },
+                              ),
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ),
