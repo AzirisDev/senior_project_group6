@@ -10,7 +10,8 @@ ServiceRequest _$ServiceRequestFromJson(Map<String, dynamic> json) =>
     ServiceRequest(
       description: json['description'] as String?,
       location: json['location'] as String?,
-      media: json['media'] as String?,
+      media:
+          (json['media'] as List<dynamic>?)?.map((e) => e as String).toList(),
       requestType: json['requestType'] as String?,
       title: json['title'] as String?,
       serviceWorkerId: json['serviceWorkerId'] as int?,

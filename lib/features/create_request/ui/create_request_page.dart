@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
@@ -241,6 +240,7 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
                   location: locationController.text,
                   requestType: _selectedService ?? '',
                   title: titleController.text,
+                  selectedImages: _selectedImages,
                 );
               },
             ),

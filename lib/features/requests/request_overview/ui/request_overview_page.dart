@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senior_project_group6/core/globals/constants.dart';
 import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/core/utils/date_time_formatter.dart';
@@ -23,6 +24,7 @@ class RequestOverviewPage extends StatefulWidget {
 
 class _RequestOverviewPageState extends State<RequestOverviewPage> {
   bool isWorker = false;
+  List<File> images = [];
 
   @override
   void initState() {
@@ -128,27 +130,28 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 100,
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        itemCount: 5,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(color: AppColor.cloudGrey, borderRadius: BorderRadius.circular(10)),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                child: SizedBox(
+                  height: 100,
+                  child: Row(
+                    children: [
+                      widget.serviceRequest.media != null && widget.serviceRequest.media!.isNotEmpty
+                          ? Expanded(
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: widget.serviceRequest.media!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    margin: const EdgeInsets.only(right: 8.0),
+                                    child: Image.network(widget.serviceRequest.media![index]),
+                                  );
+                                },
+                              ),
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(

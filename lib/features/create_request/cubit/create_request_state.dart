@@ -13,12 +13,10 @@ class CreateRequestLoadingState extends CreateRequestState {
 }
 
 class CreateRequestSuccessState extends CreateRequestState {
-  final ServiceRequest request;
-
-  CreateRequestSuccessState({required this.request});
+  CreateRequestSuccessState();
 
   @override
-  List<Object> get props => [request];
+  List<Object> get props => [];
 }
 
 class CreateRequestErrorState extends CreateRequestState {

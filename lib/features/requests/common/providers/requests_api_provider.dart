@@ -17,6 +17,7 @@ abstract class RequestsApiProvider<T> {
     String status,
     String title,
     String studentId,
+    List<String> media,
   );
 }
 
@@ -43,6 +44,7 @@ class RequestsApiProviderImpl with ApiProviderMixin implements RequestsApiProvid
     String status,
     String title,
     String studentId,
+    List<String> media,
   ) async {
     final object = await provideData(
       endPoint: createRequestEndpoint,
@@ -55,6 +57,7 @@ class RequestsApiProviderImpl with ApiProviderMixin implements RequestsApiProvid
         'requestType': requestType,
         'status': status,
         'title': title,
+        'media': media,
       }),
     );
     return DataResponse.fromJson(object);

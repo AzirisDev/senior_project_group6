@@ -8,6 +8,7 @@ class RequestTile extends StatelessWidget {
   final String location;
   final String type;
   final Status status;
+  final String? imageUrl;
   const RequestTile({
     super.key,
     required this.title,
@@ -15,6 +16,7 @@ class RequestTile extends StatelessWidget {
     required this.location,
     required this.type,
     required this.status,
+    this.imageUrl,
   });
 
   @override
@@ -25,14 +27,7 @@ class RequestTile extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: AppColor.grey,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
+              _getImage(imageUrl),
               const SizedBox(
                 width: 15,
               ),
@@ -70,8 +65,7 @@ class RequestTile extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: (statusColors[status] ?? Colors.grey)
-                            .withOpacity(0.3),
+                        color: (statusColors[status] ?? Colors.grey).withOpacity(0.3),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Text(
@@ -99,5 +93,35 @@ class RequestTile extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _getImage(String? imageUrl) {
+    return imageUrl != null
+        ? FittedBox(
+            child: Image.network(
+              imageUrl,
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: AppColor.grey,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                );
+              },
+            ),
+          )
+        : Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: AppColor.grey,
+              borderRadius: BorderRadius.circular(5),
+            ),
+          );
   }
 }
