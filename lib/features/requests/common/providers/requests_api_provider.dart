@@ -25,7 +25,7 @@ class RequestsApiProviderImpl with ApiProviderMixin implements RequestsApiProvid
   @override
   Future<DataResponse> getRequests(String userId) async {
     final role = await CacheStorage().getUserRole();
-    final requestsEndpoint = role?.toLowerCase() == 'worker' ? workerRequestsEndpoint : studentRequestsEndpoint;
+    final requestsEndpoint = role?.toLowerCase() == 'service_worker' ? workerRequestsEndpoint : studentRequestsEndpoint;
     final object = await provideData(endPoint: '$requestsEndpoint/$userId');
     return DataResponse.fromJson(object);
   }
