@@ -30,7 +30,66 @@ class _ProfilePageState extends State<ProfilePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Keys.globalNavigationKey.currentState!.pushReplacementNamed('login');
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text(
+                      'Logout',
+                    ),
+                    content: const Text('Are you sure you want to logout?'),
+                    actions: [
+                      TextButton(
+                        style: ButtonStyle(
+                          overlayColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                            return AppColor.primaryBlue.withOpacity(0.1);
+                          }),
+                          mouseCursor: MaterialStateMouseCursor.clickable,
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              side: const BorderSide(color: AppColor.primaryBlue, width: 2.0),
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: AppColor.primaryBlue,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          overlayColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                            return Colors.red.withOpacity(0.1);
+                          }),
+                          mouseCursor: MaterialStateMouseCursor.clickable,
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              side: const BorderSide(color: Colors.red, width: 2.0),
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Keys.globalNavigationKey.currentState!.pushReplacementNamed('login');
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
             },
             icon: const Icon(Icons.logout_rounded),
           ),
@@ -71,7 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ProfileInfoTile(title: state.student.role ?? '', info: "Student"),
+                  ProfileInfoTile(title: "Role", info: state.student.role ?? ''),
                   const SizedBox(height: 12),
                   ProfileInfoTile(title: "Email", info: state.student.universityEmail ?? ''),
                   const SizedBox(height: 12),

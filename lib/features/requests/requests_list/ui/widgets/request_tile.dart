@@ -98,21 +98,24 @@ class RequestTile extends StatelessWidget {
   Widget _getImage(String? imageUrl) {
     return imageUrl != null
         ? FittedBox(
-            child: Image.network(
-              imageUrl,
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: AppColor.grey,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                );
-              },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.network(
+                imageUrl,
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: AppColor.grey,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  );
+                },
+              ),
             ),
           )
         : Container(

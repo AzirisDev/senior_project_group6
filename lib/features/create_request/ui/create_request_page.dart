@@ -198,7 +198,8 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: CustomTextButton(
-              buttonText: "Choose photos",
+              enabled: _selectedImages.length < 3,
+              buttonText: "Choose photos (${_selectedImages.length}/3)",
               onPressed: () async {
                 final List<XFile> images = await ImagePicker().pickMultiImage();
 
@@ -208,30 +209,37 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-            child: SizedBox(
-              height: 100,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _selectedImages.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: const EdgeInsets.only(right: 8.0),
-                          child: Image.file(_selectedImages[index]),
-                        );
-                      },
+          if (_selectedImages.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+              child: SizedBox(
+                height: 100,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _selectedImages.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: Image.file(
+                                _selectedImages[index],
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 0),
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 0, top: 16),
             child: CustomTextButton(
               buttonText: "Create Request",
               onPressed: () {

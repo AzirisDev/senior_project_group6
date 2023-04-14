@@ -74,7 +74,7 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -131,7 +131,7 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
                 child: SizedBox(
                   height: 100,
                   child: Row(
@@ -142,9 +142,29 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: widget.serviceRequest.media!.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    margin: const EdgeInsets.only(right: 8.0),
-                                    child: Image.network(widget.serviceRequest.media![index]),
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: FittedBox(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.network(
+                                          widget.serviceRequest.media![index],
+                                          height: 100,
+                                          width: 100,
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Container(
+                                              height: 100,
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                color: AppColor.grey,
+                                                borderRadius: BorderRadius.circular(5),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
                                   );
                                 },
                               ),

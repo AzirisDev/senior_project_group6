@@ -30,6 +30,8 @@ class RequestsListCubitImpl extends RequestsListCubit {
         result.add(ServiceRequest.fromJson(element));
       });
 
+      result.sort((a, b) => b.timeCreated!.compareTo(a.timeCreated!));
+
       emit(RequestsSuccessState(requests: result));
     } else {
       emit(RequestsErrorState(data?.errorMessage));
