@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   void getWorker() async {
     var role = await CacheStorage().getUserRole();
-    if (role.toString().toLowerCase() == "worker") {
+    if (role.toString().toLowerCase() == "service_worker") {
       isWorker = true;
       setState(() {});
     }
