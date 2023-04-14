@@ -197,7 +197,7 @@ class _RequestOverviewPageState extends State<RequestOverviewPage> {
                           },
                         );
                         if (result && context.mounted) {
-                          BlocProvider.of<RequestsListCubit>(context).getRequests();
+                          BlocProvider.of<RequestsListCubit>(context).getRequestsByUserId();
                           Navigator.pop(context);
                         }
                       },

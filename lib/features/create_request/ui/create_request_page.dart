@@ -59,7 +59,7 @@ class _CreateRequestsPageState extends State<CreateRequestsPage> {
             }
 
             if (state is CreateRequestSuccessState) {
-              BlocProvider.of<RequestsListCubit>(context).getRequests();
+              BlocProvider.of<RequestsListCubit>(context).getRequestsByUserId();
               return const Center(child: Text("Request created successfully"));
             }
 

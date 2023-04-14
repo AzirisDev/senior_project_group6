@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:senior_project_group6/features/create_request/model/service.dart';
-import 'package:senior_project_group6/features/requests/common/model/service_request.dart';
 
 class CreateRequestState extends Equatable {
   @override

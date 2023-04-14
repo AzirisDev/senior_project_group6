@@ -13,6 +13,7 @@ const String userRoleBox = "userRoleBox";
 // Requests
 const String studentRequestsEndpoint = '$baseUrl/requests/student';
 const String workerRequestsEndpoint = '$baseUrl/requests/service-worker';
+const String workerAndStatusRequestsEndpoint = '$baseUrl/requests/status-and-worker';
 const String requestsEndpoint = '$baseUrl/requests/student';
 const String createRequestEndpoint = '$baseUrl/requests/create';
 const String changeStatusEndpoint = '$baseUrl/requests/update-status';

@@ -5,11 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senior_project_group6/core/services/cache_storage.dart';
 import 'package:senior_project_group6/features/create_request/cubit/create_request_state.dart';
 import 'package:senior_project_group6/features/create_request/model/service.dart';
-import 'package:senior_project_group6/features/requests/common/model/service_request.dart';
 import 'package:senior_project_group6/features/requests/common/repositories/requests_repository.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:uuid/uuid.dart';
 
 abstract class CreateRequestCubit extends Cubit<CreateRequestState> {
   CreateRequestCubit(CreateRequestState state) : super(state);
@@ -82,15 +80,6 @@ class CreateRequestCubitImpl extends CreateRequestCubit {
     } else {
       emit(CreateRequestErrorState(data.errorMessage));
     }
-  }
-
-  List<String> _uploadImages(List<File> imageList) {
-    List<String> downloadURLs = [];
-    for (int i = 0; i < imageList.length; i++) {
-      String downloadURL = encodeImage(imageList[i]);
-      downloadURLs.add(downloadURL);
-    }
-    return downloadURLs;
   }
 
   String encodeImage(File image) {
