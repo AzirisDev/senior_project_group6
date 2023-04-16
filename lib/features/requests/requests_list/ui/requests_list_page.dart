@@ -8,6 +8,7 @@ import 'package:senior_project_group6/features/requests/request_overview/ui/requ
 import 'package:senior_project_group6/features/requests/requests_list/cubit/requests_list_cubit.dart';
 import 'package:senior_project_group6/features/requests/requests_list/cubit/requests_list_state.dart';
 import 'package:senior_project_group6/features/requests/requests_list/ui/widgets/request_tile.dart';
+import 'package:senior_project_group6/features/requests/requests_list/ui/widgets/student_filter_bottom_sheet.dart';
 import 'package:senior_project_group6/features/requests/requests_list/ui/widgets/worker_filter_bottom_sheet.dart';
 
 class RequestsListPage extends StatefulWidget {
@@ -54,12 +55,25 @@ class _RequestsListPageState extends State<RequestsListPage> {
                     ),
                   ),
                   builder: (BuildContext context) {
-                    return const StatusRequestModalBottomSheet();
+                    return const WorkerFilterModalBottomSheet();
+                  },
+                );
+              } else {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
+                  ),
+                  builder: (BuildContext context) {
+                    return const StudentFilterModalBottomSheet();
                   },
                 );
               }
             },
-            icon: const Icon(Icons.filter),
+            icon: const Icon(Icons.filter_list),
           ),
         ],
       ),

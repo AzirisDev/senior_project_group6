@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senior_project_group6/core/utils/appcolors.dart';
 import 'package:senior_project_group6/core/widgets/generals/custom_text_button.dart';
 import 'package:senior_project_group6/features/requests/request_overview/cubit/request_status_cubit.dart';
 import 'package:senior_project_group6/features/requests/request_overview/cubit/request_status_state.dart';
 import 'package:senior_project_group6/features/requests/requests_list/cubit/requests_list_cubit.dart';
 
-class StatusRequestModalBottomSheet extends StatefulWidget {
-  const StatusRequestModalBottomSheet({super.key});
+class WorkerFilterModalBottomSheet extends StatefulWidget {
+  const WorkerFilterModalBottomSheet({super.key});
 
   @override
-  _StatusRequestModalBottomSheetState createState() => _StatusRequestModalBottomSheetState();
+  _WorkerFilterModalBottomSheetState createState() => _WorkerFilterModalBottomSheetState();
 }
 
-class _StatusRequestModalBottomSheetState extends State<StatusRequestModalBottomSheet> {
-  String _selectedStatus = 'ACTIVE'; // initial value
+class _WorkerFilterModalBottomSheetState extends State<WorkerFilterModalBottomSheet> {
+  int _selectedFilterIndex = 0;
   late final RequestsListCubit _cubit;
   bool _isLoading = false;
   @override
@@ -65,33 +64,71 @@ class _StatusRequestModalBottomSheetState extends State<StatusRequestModalBottom
         Navigator.pop(context, false);
       }
     }, builder: (context, snapshot) {
+      int midIndex = (_statuses.length / 2).ceil();
+
+      List<Widget> leftOptions = _statuses
+          .sublist(0, midIndex)
+          .map((option) => RadioListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: Text(option),
+                value: _statuses.indexOf(option),
+                groupValue: _selectedFilterIndex,
+                onChanged: (int? value) {
+                  setState(() {
+                    _selectedFilterIndex = value!;
+                  });
+                },
+              ))
+          .toList();
+
+      List<Widget> rightOptions = _statuses
+          .sublist(midIndex)
+          .map((option) => RadioListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: Text(option),
+                value: _statuses.indexOf(option),
+                groupValue: _selectedFilterIndex,
+                onChanged: (int? value) {
+                  setState(() {
+                    _selectedFilterIndex = value!;
+                  });
+                },
+              ))
+          .toList();
+
       return Padding(
         padding: const EdgeInsets.all(16),
         child: Wrap(
           children: <Widget>[
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: _statuses.length,
-              itemBuilder: (BuildContext context, int index) {
-                final status = _statuses[index];
-                return ListTile(
-                  title: Text(status),
-                  trailing: _selectedStatus == status
-                      ? const Icon(
-                          Icons.check_box,
-                          color: AppColor.primaryBlue,
-                        )
-                      : const Icon(
-                          Icons.check_box_outline_blank,
-                          color: AppColor.primaryBlue,
-                        ),
-                  onTap: () {
-                    setState(() {
-                      _selectedStatus = status;
-                    });
-                  },
-                );
-              },
+            const Padding(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
+                "Filter by status",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: leftOptions,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: rightOptions,
+                  ),
+                ),
+              ],
             ),
             Container(
               alignment: Alignment.center,
@@ -99,10 +136,10 @@ class _StatusRequestModalBottomSheetState extends State<StatusRequestModalBottom
               child: CustomTextButton(
                   isLoading: _isLoading,
                   onPressed: () {
-                    if (_selectedStatus == 'ALL') {
+                    if (_statuses[_selectedFilterIndex] == 'ALL') {
                       _cubit.getRequestsByUserId();
                     } else {
-                      _cubit.getRequestsByStatusWorkerId(_selectedStatus);
+                      _cubit.getRequestsByStatusWorkerId(_statuses[_selectedFilterIndex]);
                     }
                     Navigator.of(context).pop();
                   },

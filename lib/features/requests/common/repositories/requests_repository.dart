@@ -4,6 +4,8 @@ import 'package:senior_project_group6/features/requests/common/providers/request
 abstract class RequestsRepository<T> {
   Future<T> getRequests(String studentId);
   Future<T> getRequestsByStatusWorkerId(String status, String workerId);
+  Future<T> getStudentRequestsByStatus(String status, String studentId);
+  Future<T> getStudentRequestsByStatusAndType(String status, String type, String studentId);
   Future<T> getServices();
   Future<T> changeStatus(String requestId, String status);
   Future<T> createRequest(
@@ -36,6 +38,26 @@ class RequestsRepositoryImpl implements RequestsRepository {
   Future<AppResponse> getRequestsByStatusWorkerId(String status, String workerId) async {
     try {
       final data = await apiProvider.getRequestsByStatusWorkerId(status, workerId);
+      return AppResponse.success(data);
+    } on Exception catch (e) {
+      return AppResponse.withError(e.toString());
+    }
+  }
+
+  @override
+  Future<AppResponse> getStudentRequestsByStatus(String status, String studentId) async {
+    try {
+      final data = await apiProvider.getStudentRequestsByStatus(status, studentId);
+      return AppResponse.success(data);
+    } on Exception catch (e) {
+      return AppResponse.withError(e.toString());
+    }
+  }
+
+  @override
+  Future<AppResponse> getStudentRequestsByStatusAndType(String status, String type, String studentId) async {
+    try {
+      final data = await apiProvider.getStudentRequestsByStatusAndType(status, type, studentId);
       return AppResponse.success(data);
     } on Exception catch (e) {
       return AppResponse.withError(e.toString());
