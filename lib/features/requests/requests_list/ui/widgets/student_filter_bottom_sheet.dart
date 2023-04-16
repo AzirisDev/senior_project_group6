@@ -234,14 +234,12 @@ class _StudentFilterModalBottomSheetState extends State<StudentFilterModalBottom
                         onPressed: () {
                           final selectedStatus = _statuses[_selectedFilterIndex];
                           final selectedType = _types[_selectedTypeIndex].departmentType ?? 'ALL';
-                          if (selectedType == 'ALL' && selectedStatus == 'ALL') {
+                          if (selectedStatus == 'ALL') {
                             _requestsCubit.getRequestsByUserId();
                           } else if (selectedType != 'ALL' && selectedStatus != 'ALL') {
                             _requestsCubit.getStudentRequestsByStatusAndType(selectedStatus, selectedType);
                           } else if (selectedType == 'ALL' && selectedStatus != 'ALL') {
                             _requestsCubit.getStudentRequestsByStatus(selectedStatus);
-                          } else {
-                            // selectedType != ALL and selectedStatus  == ALL
                           }
                           Navigator.of(context).pop();
                         },
