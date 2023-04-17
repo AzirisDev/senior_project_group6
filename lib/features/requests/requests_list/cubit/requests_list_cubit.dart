@@ -8,7 +8,6 @@ abstract class RequestsListCubit extends Cubit<RequestsState> {
   RequestsListCubit() : super(RequestsState());
   void getRequestsByUserId();
   void getRequestsByStatusWorkerId(String status);
-  void getStudentRequestsByStatus(String status);
   void getStudentRequestsByStatusAndType(String status, String type);
 }
 
@@ -26,26 +25,6 @@ class RequestsListCubitImpl extends RequestsListCubit {
     emit(RequestsLoadingState());
     final userId = await cacheStorage.getUserId();
     final data = await repository.getRequests(userId.toString());
-    if (data?.object != null) {
-      final List<ServiceRequest> result = [];
-
-      data?.object.data.forEach((element) {
-        result.add(ServiceRequest.fromJson(element));
-      });
-
-      result.sort((a, b) => b.timeCreated!.compareTo(a.timeCreated!));
-
-      emit(RequestsSuccessState(requests: result));
-    } else {
-      emit(RequestsErrorState(data?.errorMessage));
-    }
-  }
-
-  @override
-  void getStudentRequestsByStatus(String status) async {
-    emit(RequestsLoadingState());
-    final studentId = await cacheStorage.getUserId();
-    final data = await repository.getStudentRequestsByStatus(status, studentId.toString());
     if (data?.object != null) {
       final List<ServiceRequest> result = [];
 

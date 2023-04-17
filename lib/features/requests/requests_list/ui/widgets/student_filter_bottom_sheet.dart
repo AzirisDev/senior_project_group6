@@ -111,7 +111,6 @@ class _StudentFilterModalBottomSheetState extends State<StudentFilterModalBottom
           listener: (context, state) {
             if (state is GetServicesSuccessState) {
               _types.addAll(state.services);
-              _types.add(Service(id: -1, departmentType: "ALL", adminId: -1));
               _isServicesLoading = false;
             }
           },
@@ -236,10 +235,8 @@ class _StudentFilterModalBottomSheetState extends State<StudentFilterModalBottom
                           final selectedType = _types[_selectedTypeIndex].departmentType ?? 'ALL';
                           if (selectedStatus == 'ALL') {
                             _requestsCubit.getRequestsByUserId();
-                          } else if (selectedType != 'ALL' && selectedStatus != 'ALL') {
+                          } else {
                             _requestsCubit.getStudentRequestsByStatusAndType(selectedStatus, selectedType);
-                          } else if (selectedType == 'ALL' && selectedStatus != 'ALL') {
-                            _requestsCubit.getStudentRequestsByStatus(selectedStatus);
                           }
                           Navigator.of(context).pop();
                         },

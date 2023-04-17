@@ -9,7 +9,6 @@ import 'package:senior_project_group6/features/auth/model/user.dart';
 abstract class RequestsApiProvider<T> {
   Future<DataResponse> getRequests(String studentId);
   Future<DataResponse> getRequestsByStatusWorkerId(String status, String workerId);
-  Future<DataResponse> getStudentRequestsByStatus(String status, String studentId);
   Future<DataResponse> getStudentRequestsByStatusAndType(String status, String type, String studentId);
   Future<DataResponse> getServices();
   Future<DataResponse> changeStatus(String requestId, String status);
@@ -43,23 +42,13 @@ class RequestsApiProviderImpl with ApiProviderMixin implements RequestsApiProvid
   }
 
   @override
-  Future<DataResponse> getStudentRequestsByStatus(String status, String studentId) async {
-    final object = await provideData(
-      endPoint: "$studentRequestsByStatusEndpoint/$studentId",
-      param: {
-        'status': status,
-      },
-    );
-    return DataResponse.fromJson(object);
-  }
-
-  @override
   Future<DataResponse> getStudentRequestsByStatusAndType(String status, String type, String studentId) async {
     final object = await provideData(
-      endPoint: "$studentRequestsByStatusAndTypeEndpoint/$studentId",
+      endPoint: studentRequestsByStatusAndTypeEndpoint,
       param: {
         'status': status,
         'type': type,
+        'studentId': studentId,
       },
     );
     return DataResponse.fromJson(object);
