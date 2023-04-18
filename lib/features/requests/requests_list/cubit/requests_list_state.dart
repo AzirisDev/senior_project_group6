@@ -17,7 +17,7 @@ class RequestsSuccessState extends RequestsState {
   RequestsSuccessState({required this.requests});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [requests];
 }
 
 class RequestsErrorState extends RequestsState {

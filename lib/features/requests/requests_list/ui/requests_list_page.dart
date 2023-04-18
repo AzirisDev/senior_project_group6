@@ -20,9 +20,10 @@ class RequestsListPage extends StatefulWidget {
 
 class _RequestsListPageState extends State<RequestsListPage> {
   bool isWorker = false;
+  late RequestsListCubit _cubit;
   @override
   void initState() {
-    context.read<RequestsListCubit>().getRequestsByUserId();
+    _cubit = context.read<RequestsListCubit>()..getRequestsByUserId();
     super.initState();
     getWorker();
   }
@@ -88,38 +89,43 @@ class _RequestsListPageState extends State<RequestsListPage> {
             }
 
             if (state is RequestsSuccessState) {
-              return state.requests.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: state.requests.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => RequestOverviewPage(
-                                  serviceRequest: state.requests[index],
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _cubit.getRequestsByUserId();
+                },
+                child: state.requests.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: state.requests.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => RequestOverviewPage(
+                                    serviceRequest: state.requests[index],
+                                  ),
                                 ),
+                              );
+                            },
+                            child: Container(
+                              color: Colors.transparent,
+                              child: RequestTile(
+                                title: state.requests[index].title ?? '',
+                                date: DateTimeFormatter().convertDateFormat(state.requests[index].timeCreated ?? DateTime.now().toString()),
+                                location: state.requests[index].location ?? '',
+                                type: state.requests[index].requestType ?? '',
+                                status: namesToStatus[state.requests[index].status?.toLowerCase()] ?? Status.active,
+                                imageUrl:
+                                    state.requests[index].media != null && state.requests[index].media!.isNotEmpty ? state.requests[index].media!.first : null,
                               ),
-                            );
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            child: RequestTile(
-                              title: state.requests[index].title ?? '',
-                              date: DateTimeFormatter().convertDateFormat(state.requests[index].timeCreated ?? DateTime.now().toString()),
-                              location: state.requests[index].location ?? '',
-                              type: state.requests[index].requestType ?? '',
-                              status: namesToStatus[state.requests[index].status?.toLowerCase()] ?? Status.active,
-                              imageUrl:
-                                  state.requests[index].media != null && state.requests[index].media!.isNotEmpty ? state.requests[index].media!.first : null,
                             ),
-                          ),
-                        );
-                      },
-                    )
-                  : const Center(
-                      child: Text("No requests"),
-                    );
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: Text("No requests"),
+                      ),
+              );
             }
 
             return const Center(
